@@ -5,6 +5,7 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import Menu from './componentes/Menu'
 import Home from './componentes/telas/Home'
+import Categoria from "./componentes/telas/categoria/Categoria";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
       {
         index : true,
         element : <Home/>
+      },
+      {
+        path : "categorias",
+        element : <Categoria/>
       }
     ]
   }
