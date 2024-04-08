@@ -17,7 +17,7 @@ function Form() {
                     <form id="formulario" onSubmit={acaoCadastrar}>
                         <div className="modal-body">
                             <div className="mb-3">
-                                <label for="txtCodigo" 
+                                <label htmlFor="txtCodigo" 
                                 className="form-label">Código</label>
                                 <input type="number" class="form-control" 
                                 id="txtCodigo"
@@ -27,7 +27,7 @@ function Form() {
                                 onChange={handleChange} />
                             </div>
                             <div className="mb-3">
-                                <label for="txtNome" 
+                                <label htmlFor="txtNome" 
                                 className="form-label">Nome</label>
                                 <input type="text" class="form-control" 
                                 id="txtNome" placeholder="Informe o nome"
