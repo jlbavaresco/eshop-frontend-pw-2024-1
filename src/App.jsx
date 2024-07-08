@@ -6,6 +6,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import Menu from './componentes/Menu'
 import Home from './componentes/telas/Home'
 import Categoria from "./componentes/telas/categoria/Categoria";
+import Produto from "./componentes/telas/produto/Produto";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,11 @@ const router = createBrowserRouter([
       {
         path : "categorias",
         element : <Categoria/>
+      }
+      ,
+      {
+        path : "produtos",
+        element : <Produto/>
       }
     ]
   }
