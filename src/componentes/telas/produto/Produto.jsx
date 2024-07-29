@@ -8,8 +8,12 @@ import {
 import Tabela from "./Tabela";
 import Form from "./Form";
 import Carregando from "../../comuns/Carregando";
+import WithAuth from "../../../seguranca/WithAuth";
+import { useNavigate } from "react-router-dom";
 
 function Produto() {
+
+    let navigate = useNavigate();
 
     const [alerta, setAlerta] = useState({ status: "", message: "" });
     const [listaObjetos, setListaObjetos] = useState([]);
@@ -34,9 +38,14 @@ function Produto() {
     }
 
     const editarObjeto = async codigo => {
-        setObjeto(await getProdutoPorCodigoAPI(codigo));
-        setEditar(true);
-        setAlerta({ status: "", message: "" });
+        try {
+            setObjeto(await getProdutoPorCodigoAPI(codigo));
+            setEditar(true);
+            setAlerta({ status: "", message: "" });
+        } catch (err) {
+            window.location.reload();
+            navigate("login", { replace: true });
+        }
     }
 
     const acaoCadastrar = async e => {
@@ -50,7 +59,8 @@ function Produto() {
                 setEditar(true);
             }
         } catch (err) {
-            console.log(err);
+            window.location.reload();
+            navigate("login", { replace: true });
         }
         recuperaProdutos();
     }
@@ -64,20 +74,35 @@ function Produto() {
     const [carregando, setCarregando] = useState(false);
 
     const recuperaProdutos = async () => {
-        setCarregando(true);
-        setListaObjetos(await getProdutosAPI());
-        setCarregando(false);
+        try {
+            setCarregando(true);
+            setListaObjetos(await getProdutosAPI());
+            setCarregando(false);
+        } catch (err) {
+            window.location.reload();
+            navigate("login", { replace: true });
+        }
     }
 
     const recuperaCategorias = async () => {
-        setListaCategorias(await getCategoriasAPI());
+        try {
+            setListaCategorias(await getCategoriasAPI());
+        } catch (err) {
+            window.location.reload();
+            navigate("login", { replace: true });
+        }
     }
 
     const remover = async codigo => {
         if (window.confirm('Deseja remover este objeto?')) {
-            let retornoAPI = await deleteProdutoAPI(codigo);
-            setAlerta({ status: retornoAPI.status, message: retornoAPI.message });
-            recuperaProdutos();
+            try {
+                let retornoAPI = await deleteProdutoAPI(codigo);
+                setAlerta({ status: retornoAPI.status, message: retornoAPI.message });
+                recuperaProdutos();
+            } catch (err) {
+                window.location.reload();
+                navigate("login", { replace: true });
+            }
         }
     }
 
@@ -103,4 +128,4 @@ function Produto() {
 
 }
 
-export default Produto;
+export default WithAuth(Produto);
